@@ -1,8 +1,8 @@
-import { router } from "express"
-import { getAllJoyasLimit } from "../src/controllers/joyasControllers"
+import express from "express";
+import { getAllJoyasLimit } from "../src/controllers/joyasControllers.js";
 
-const router = router()
+const router = express.Router();
 
-router.get("/joyas_limit", getAllJoyasLimit)
+router.get("/joyas_limit", getAllJoyasLimit);
 
-export default router
+export default router;
