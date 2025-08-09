@@ -11,6 +11,7 @@ export const limitJoyasModel = async (limit = 2) => {
   return result.rows;
 };
 
+
 //limitado y ordenado asc o desc
 export const limitFormatJoyas = async (order_by = "id_ASC", limit = 2) => {
   const [attribute, direction] = order_by.split("_");
@@ -24,6 +25,8 @@ export const limitFormatJoyas = async (order_by = "id_ASC", limit = 2) => {
   const response = await pool.query(formatQuery);
   return response.rows;
 };
+
+
 
 //limitado ordenado y con paginado
 export const getPaginatedJoyasModel = async ({
@@ -43,6 +46,8 @@ export const getPaginatedJoyasModel = async ({
   const response = await pool.query(formatQuery);
   return response.rows;
 };
+
+
 
 //modelo con filtros
 export const getJoyasFiltradasModel = async ({
@@ -78,3 +83,11 @@ export const getJoyasFiltradasModel = async ({
   const result = await pool.query(consulta);
   return result.rows;
 };
+
+
+// con HATEOAS
+
+export const joyaHateoasModel = async() =>{
+    const allJoyas = await pool.query('SELECT * FROM inventario')
+    return allJoyas.rows
+}
