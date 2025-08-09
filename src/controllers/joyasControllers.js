@@ -1,4 +1,4 @@
-import { limitJoyasModel } from "../models/joyasModels.js";
+import { getJoyasFiltradasModel, getPaginatedJoyasModel, limitFormatJoyas, limitJoyasModel } from "../models/joyasModels.js";
 
 export const getAllJoyasLimit = async (req, res) => {
   try {
@@ -10,3 +10,39 @@ export const getAllJoyasLimit = async (req, res) => {
     console.error("error==>", error);
   }
 };
+
+export const getOrderAndLimitJoyas = async (req, res) => {
+  try {
+    const { order_by, limit } = req.query;
+    const joyas = await limitFormatJoyas(order_by, limit);
+    res.status(200).json({ joyas });
+  } catch (error) {
+    res.status(500).json({ error: "Error al procesar la solicitud" });
+    console.error("error==>", error);
+  }
+};
+
+
+export const getPaginatedJoyas = async (req, res) => {
+  try {
+    const { order_by, limit, page } = req.query;
+    const joyas = await getPaginatedJoyasModel({order_by, limit, page});
+    res.status(200).json({ joyas });
+  } catch (error) {
+    res.status(500).json({ error: "Error al procesar la solicitud" });
+    console.error("error==>", error);
+  }
+};
+
+
+
+export const joyasFiltros = async (req, res)=>{
+    try {
+      const filters = req.query 
+      const joyas = await getJoyasFiltradasModel(filters)
+      res.status(200).json({joyas})
+    } catch (error) {
+     res.status(500).json({ error: "Error al procesar la solicitud" });
+    console.error("error==>", error);
+    }
+}
